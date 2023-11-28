@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
 import { TeachersService } from './teachers.service';
 import { TeacherEntity } from './entities/teacher.entity';
 import { TeacherCreateDto } from './dto/teacher-create.dto';
@@ -18,6 +18,7 @@ export class TeachersController {
   constructor(private readonly teachersService: TeachersService) {}
 
   @Post()
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: TeacherEntity })
   create(@Body() createTeacherDto: TeacherCreateDto) {
     return this.teachersService.create(createTeacherDto);
@@ -36,12 +37,14 @@ export class TeachersController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ type: TeacherEntity })
   update(@Param('id') id: string, @Body() updateTeacherDto: TeacherUpdateDto) {
     return this.teachersService.update(id, updateTeacherDto);
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ type: TeacherEntity })
   remove(@Param('id') id: string) {
     return this.teachersService.remove(id);

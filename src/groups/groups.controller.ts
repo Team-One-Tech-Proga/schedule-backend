@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
 import { GroupsService } from './groups.service';
 import { GroupEntity } from './entities/group.entity';
 import { GroupCreateDto } from './dto/group-create.dto';
@@ -10,6 +10,7 @@ export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
   @Post()
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: GroupEntity })
   create(@Body() createGroupDto: GroupCreateDto) {
     return this.groupsService.create(createGroupDto);
@@ -34,12 +35,14 @@ export class GroupsController {
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ type: GroupEntity })
   update(@Param('id') id: string, @Body() updateGroupDto: GroupUpdateDto) {
     return this.groupsService.update(+id, updateGroupDto);
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
   @ApiOkResponse({ type: GroupEntity })
   remove(@Param('id') id: string) {
     return this.groupsService.remove(+id);
