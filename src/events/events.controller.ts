@@ -4,7 +4,7 @@ import { EventsService } from './events.service';
 import { EventCreateDto } from './dto/event-create.dto';
 import { EventUpdateDto } from './dto/event-update.dto';
 import { EventEntity } from './entities/event.entity';
-import { EventRequestDto } from "./dto/event-request.dto";
+import { EventRequestDto } from './dto/event-request.dto';
 
 @Controller('events')
 @ApiTags('events')
