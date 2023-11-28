@@ -1,0 +1,9 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: "mongodb://localhost/schedule"
+    ports:
+      - 3000:3000
