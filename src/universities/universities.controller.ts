@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { UniversitiesService } from './universities.service';
 import { UniversityEntity } from './entities/university.entity';
 import { UniversityCreateDto } from './dto/university-create.dto';
 import { UniversityUpdateDto } from './dto/university-update.dto';
 
 @Controller('universities')
+@ApiTags('universities')
 export class UniversitiesController {
   constructor(private readonly universitiesService: UniversitiesService) {}
 
@@ -31,7 +32,10 @@ export class UniversitiesController {
   @Patch(':id')
   @ApiBearerAuth()
   @ApiOkResponse({ type: UniversityEntity })
-  update(@Param('id') id: string, @Body() updateUniversityDto: UniversityUpdateDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateUniversityDto: UniversityUpdateDto,
+  ) {
     return this.universitiesService.update(id, updateUniversityDto);
   }
 

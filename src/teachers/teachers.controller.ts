@@ -7,13 +7,14 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { TeachersService } from './teachers.service';
 import { TeacherEntity } from './entities/teacher.entity';
 import { TeacherCreateDto } from './dto/teacher-create.dto';
 import { TeacherUpdateDto } from './dto/teacher-update.dto';
 
 @Controller('teachers')
+@ApiTags('teachers')
 export class TeachersController {
   constructor(private readonly teachersService: TeachersService) {}
 

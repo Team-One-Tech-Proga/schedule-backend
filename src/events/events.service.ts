@@ -8,7 +8,7 @@ import { EventRequestDto } from "./dto/event-request.dto";
 export class EventsService {
   constructor(private prisma: PrismaService) {}
   create(createEventDto: EventCreateDto) {
-    return 'This action adds a new event';
+    return this.prisma.event.create({ data: createEventDto });
   }
 
   findAll() {
@@ -35,10 +35,13 @@ export class EventsService {
   }
 
   update(id: string, updateEventDto: EventUpdateDto) {
-    return `This action updates a #${id} event`;
+    return this.prisma.event.update({
+      where: { id },
+      data: updateEventDto,
+    });
   }
 
   remove(id: string) {
-    return `This action removes a #${id} event`;
+    return this.prisma.event.delete({ where: { id } });
   }
 }

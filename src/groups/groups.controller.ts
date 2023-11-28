@@ -1,11 +1,12 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { GroupsService } from './groups.service';
 import { GroupEntity } from './entities/group.entity';
 import { GroupCreateDto } from './dto/group-create.dto';
 import { GroupUpdateDto } from './dto/group-update.dto';
 
 @Controller('groups')
+@ApiTags('groups')
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
@@ -28,23 +29,17 @@ export class GroupsController {
     return this.groupsService.findOne(id);
   }
 
-  @Get(':id/events')
-  @ApiOkResponse({ type: GroupEntity })
-  findOneWithEvents(@Param('id') id: string) {
-    return this.groupsService.findOneWithEvents(id);
-  }
-
   @Patch(':id')
   @ApiBearerAuth()
   @ApiOkResponse({ type: GroupEntity })
   update(@Param('id') id: string, @Body() updateGroupDto: GroupUpdateDto) {
-    return this.groupsService.update(+id, updateGroupDto);
+    return this.groupsService.update(id, updateGroupDto);
   }
 
   @Delete(':id')
   @ApiBearerAuth()
   @ApiOkResponse({ type: GroupEntity })
   remove(@Param('id') id: string) {
-    return this.groupsService.remove(+id);
+    return this.groupsService.remove(id);
   }
 }

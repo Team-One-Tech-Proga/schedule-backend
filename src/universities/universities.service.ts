@@ -7,7 +7,7 @@ import { PrismaService } from '../prisma/prisma.service';
 export class UniversitiesService {
   constructor(private prisma: PrismaService) {}
   create(createUniversityDto: UniversityCreateDto) {
-    return '{This action adds a new university}}';
+    return this.prisma.university.create({ data: createUniversityDto });
   }
 
   findAll() {
@@ -19,10 +19,13 @@ export class UniversitiesService {
   }
 
   update(id: string, updateUniversityDto: UniversityUpdateDto) {
-    return `This action updates a #${id} university`;
+    return this.prisma.university.update({
+      where: { id },
+      data: updateUniversityDto,
+    });
   }
 
   remove(id: string) {
-    return `This action removes a #${id} university`;
+    return this.prisma.university.delete({ where: { id } });
   }
 }

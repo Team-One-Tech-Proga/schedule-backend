@@ -8,7 +8,7 @@ import * as events from "events";
 export class GroupsService {
   constructor(private prisma: PrismaService) {}
   create(createGroupDto: GroupCreateDto) {
-    return 'This action adds a new group';
+    return this.prisma.group.create({ data: createGroupDto });
   }
 
   findAll() {
@@ -19,18 +19,14 @@ export class GroupsService {
     return this.prisma.group.findUnique({ where: { id } });
   }
 
-  findOneWithEvents(id: string) {
-    return this.prisma.group.findUnique({
+  update(id: string, updateGroupDto: GroupUpdateDto) {
+    return this.prisma.group.update({
       where: { id },
-      include: { events: true },
+      data: updateGroupDto,
     });
   }
 
-  update(id: number, updateGroupDto: GroupUpdateDto) {
-    return `This action updates a #${id} group`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} group`;
+  remove(id: string) {
+    return this.prisma.group.delete({ where: { id } });
   }
 }

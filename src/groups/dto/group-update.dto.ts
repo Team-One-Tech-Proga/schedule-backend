@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { GroupCreateDto } from './group-create.dto';
 
-export class GroupUpdateDto extends PartialType(GroupCreateDto) {}
+export class GroupUpdateDto extends PartialType(GroupCreateDto) {
+  @ApiProperty()
+  name: string;
+}
