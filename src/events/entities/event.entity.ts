@@ -1,7 +1,8 @@
 import { Event } from '@prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { GroupEntity } from "../../groups/entities/group.entity";
-import { TeacherEntity } from "../../teachers/entities/teacher.entity";
+import { GroupEntity } from '../../groups/entities/group.entity';
+import { TeacherEntity } from '../../teachers/entities/teacher.entity';
+import { UserEntity } from '../../users/entities/user.entity';
 
 export class EventEntity implements Event {
   @ApiProperty()
@@ -39,4 +40,7 @@ export class EventEntity implements Event {
 
   @ApiProperty()
   updatedAt: Date;
+
+  usersIDs: string[];
+  users: UserEntity[];
 }

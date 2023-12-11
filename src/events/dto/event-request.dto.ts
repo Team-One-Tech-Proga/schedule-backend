@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsMongoId, IsOptional } from 'class-validator';
+import { IsISO8601, IsMongoId, IsOptional } from 'class-validator';
 
 export class EventRequestDto {
   @IsMongoId()
@@ -12,12 +12,12 @@ export class EventRequestDto {
   @ApiProperty({ required: false })
   teacherId?: string;
 
-  @IsDate()
+  @IsISO8601()
   @IsOptional()
   @ApiProperty({ required: false })
   startAt?: Date;
 
-  @IsDate()
+  @IsISO8601()
   @IsOptional()
   @ApiProperty({ required: false })
   endAt?: Date;

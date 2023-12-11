@@ -64,13 +64,17 @@ model Event {
   groupId     String   @db.ObjectId
   teacher     Teacher? @relation(fields: [teacherId], references: [id])
   teacherId   String?  @db.ObjectId
+  users       User[]   @relation(fields: [usersIDs], references: [id])
+  usersIDs    String[] @db.ObjectId
 }
 
 model User {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  username  String @unique
-  password  String
-  group     Group  @relation(fields: [groupId], references: [id])
-  groupId   String @db.ObjectId
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName       String
+  username        String   @unique
+  password        String
+  group           Group    @relation(fields: [groupId], references: [id])
+  groupId         String   @db.ObjectId
+  markedEvents    Event[]  @relation(fields: [markedEventsIDs], references: [id])
+  markedEventsIDs String[] @db.ObjectId
 }

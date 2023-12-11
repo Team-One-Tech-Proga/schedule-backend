@@ -4,6 +4,8 @@ import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { UserCreateDto } from '../users/dto/user-create.dto';
+import { CurrentUser } from "./user.decorator";
+import { UserEntity } from "../users/entities/user.entity";
 
 @Controller('auth')
 @ApiTags('auth')
@@ -23,7 +25,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  getProfile(@Request() req) {
-    return req.user;
+  getProfile(@CurrentUser() user: any) {
+    return user;
   }
 }

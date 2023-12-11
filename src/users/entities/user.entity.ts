@@ -15,4 +15,7 @@ export class UserEntity implements User {
 
   @ApiProperty()
   groupId: string;
+
+  @ApiProperty()
+  markedEventsIDs: string[];
 }

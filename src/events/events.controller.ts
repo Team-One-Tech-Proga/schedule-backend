@@ -1,9 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { EventsService } from './events.service';
 import { EventCreateDto } from './dto/event-create.dto';
 import { EventUpdateDto } from './dto/event-update.dto';
 import { EventEntity } from './entities/event.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { CurrentUser } from '../auth/user.decorator';
+import { UserEntity } from '../users/entities/user.entity';
 import { EventRequestDto } from './dto/event-request.dto';
 
 @Controller('events')
@@ -24,6 +42,17 @@ export class EventsController {
     return this.eventsService.findWithQuery(query);
   }
 
+  @Get('marked')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: EventEntity, isArray: true })
+  findAllMarked(
+    @Query() query: EventRequestDto,
+    @CurrentUser() user: UserEntity,
+  ) {
+    return this.eventsService.findWithQueryandUser(query, user);
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: EventEntity })
   findOne(@Param('id') id: string) {
@@ -42,5 +71,21 @@ export class EventsController {
   @ApiOkResponse({ type: EventEntity })
   remove(@Param('id') id: string) {
     return this.eventsService.remove(id);
+  }
+
+  @Post(':id/mark')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiCreatedResponse()
+  mark(@Param('id') id: string, @CurrentUser() user: UserEntity) {
+    return this.eventsService.mark(id, user);
+  }
+
+  @Delete(':id/mark')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiCreatedResponse()
+  unMark(@Param('id') id: string, @CurrentUser() user: UserEntity) {
+    return this.eventsService.unMark(id, user);
   }
 }
