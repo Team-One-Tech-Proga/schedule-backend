@@ -25,12 +25,8 @@ export class UserCreateDto {
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(30)
-  password: string;
-
-  @IsMongoId()
-  @IsNotEmpty()
   @ApiProperty()
-  universityId: string;
+  password: string;
 
   @IsMongoId()
   @IsNotEmpty()

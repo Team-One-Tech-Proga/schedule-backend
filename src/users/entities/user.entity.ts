@@ -14,8 +14,5 @@ export class UserEntity implements User {
   password: string;
 
   @ApiProperty()
-  universityId: string;
-
-  @ApiProperty()
   groupId: string;
 }
