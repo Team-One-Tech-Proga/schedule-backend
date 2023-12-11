@@ -23,7 +23,7 @@ export class UserCreateDto {
   username: string;
 
   @IsNotEmpty()
-  @MinLength(3)
+  @MinLength(8)
   @MaxLength(30)
   password: string;
 
@@ -31,4 +31,9 @@ export class UserCreateDto {
   @IsNotEmpty()
   @ApiProperty()
   universityId: string;
+
+  @IsMongoId()
+  @IsNotEmpty()
+  @ApiProperty()
+  groupId: string;
 }
