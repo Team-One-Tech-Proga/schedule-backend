@@ -3,7 +3,6 @@ import { EventCreateDto } from './dto/event-create.dto';
 import { EventUpdateDto } from './dto/event-update.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { EventRequestDto } from './dto/event-request.dto';
-import { UserEntity } from "../users/entities/user.entity";
 
 @Injectable()
 export class EventsService {
