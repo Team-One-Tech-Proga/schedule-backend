@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsInt, IsMongoId, IsNotEmpty, IsOptional, IsPositive, IsString } from "class-validator";
+import {
+  IsDate,
+  IsInt,
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  IsPositive,
+  IsString,
+} from 'class-validator';
 
 export class EventCreateDto {
   @IsNotEmpty()

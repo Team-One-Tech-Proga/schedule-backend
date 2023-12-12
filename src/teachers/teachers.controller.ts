@@ -5,14 +5,20 @@ import {
   Body,
   Patch,
   Param,
-  Delete, UseGuards
-} from "@nestjs/common";
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { TeachersService } from './teachers.service';
 import { TeacherEntity } from './entities/teacher.entity';
 import { TeacherCreateDto } from './dto/teacher-create.dto';
 import { TeacherUpdateDto } from './dto/teacher-update.dto';
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('teachers')
 @ApiTags('teachers')

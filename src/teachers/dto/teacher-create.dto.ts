@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import {
+  IsMongoId,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class TeacherCreateDto {
   @IsString()

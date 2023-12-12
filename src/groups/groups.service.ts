@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { GroupCreateDto } from './dto/group-create.dto';
 import { GroupUpdateDto } from './dto/group-update.dto';
 import { PrismaService } from '../prisma/prisma.service';
-import * as events from "events";
 
 @Injectable()
 export class GroupsService {
