@@ -30,6 +30,7 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: EventEntity })
   create(@Body() createEventDto: EventCreateDto) {
@@ -60,6 +61,7 @@ export class EventsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: EventEntity })
   update(@Param('id') id: string, @Body() updateEventDto: EventUpdateDto) {
@@ -67,6 +69,7 @@ export class EventsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: EventEntity })
   remove(@Param('id') id: string) {
