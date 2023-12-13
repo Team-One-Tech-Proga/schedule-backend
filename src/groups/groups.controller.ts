@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -41,8 +42,12 @@ export class GroupsController {
 
   @Get(':id')
   @ApiOkResponse({ type: GroupEntity })
-  findOne(@Param('id') id: string) {
-    return this.groupsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const result = await this.groupsService.findOne(id);
+    if (!result) {
+      throw new NotFoundException(`Object with ${id} does not exist.`);
+    }
+    return result;
   }
 
   @Patch(':id')

@@ -8,6 +8,7 @@ import {
   Delete,
   UseGuards,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -56,8 +57,12 @@ export class EventsController {
 
   @Get(':id')
   @ApiOkResponse({ type: EventEntity })
-  findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const result = await this.eventsService.findOne(id);
+    if (!result) {
+      throw new NotFoundException(`Object with ${id} does not exist.`);
+    }
+    return result;
   }
 
   @Patch(':id')

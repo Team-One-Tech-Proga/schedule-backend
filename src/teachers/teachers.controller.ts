@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -41,8 +42,12 @@ export class TeachersController {
 
   @Get(':id')
   @ApiOkResponse({ type: TeacherEntity })
-  findOne(@Param('id') id: string) {
-    return this.teachersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const result = await this.teachersService.findOne(id);
+    if (!result) {
+      throw new NotFoundException(`Object with ${id} does not exist.`);
+    }
+    return result;
   }
 
   @Patch(':id')
