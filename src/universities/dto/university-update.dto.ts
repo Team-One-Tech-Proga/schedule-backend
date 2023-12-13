@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { UniversityCreateDto } from './university-create.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, MaxLength, MinLength } from "class-validator";
+import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class UniversityUpdateDto extends PartialType(UniversityCreateDto) {
   @IsString()
