@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -14,8 +14,12 @@ describe('AuthService', () => {
       imports: [
         UsersModule,
         PassportModule,
-        JwtModule.register({
-          secret: jwtConstants.secret,
+        JwtModule.registerAsync({
+          imports: [ConfigModule],
+          useFactory: async (configService: ConfigService) => ({
+            secret: configService.get<string>('JWT_SECRET'),
+          }),
+          inject: [ConfigService],
         }),
       ],
     }).compile();

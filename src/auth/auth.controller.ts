@@ -8,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { UserCreateDto } from '../users/dto/user-create.dto';
 import { CurrentUser } from './user.decorator';

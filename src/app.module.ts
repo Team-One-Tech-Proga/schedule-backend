@@ -7,9 +7,11 @@ import { GroupsModule } from './groups/groups.module';
 import { TeachersModule } from './teachers/teachers.module';
 import { EventsModule } from './events/events.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     PrismaModule,
     UniversitiesModule,
     GroupsModule,
