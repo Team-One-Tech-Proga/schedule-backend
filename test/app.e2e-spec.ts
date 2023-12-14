@@ -1,8 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { PrismaClient } from '@prisma/client';
+import { HttpAdapterHost } from '@nestjs/core';
+import { PrismaClientExceptionFilter } from '../src/prisma/client-exception/prisma-client-exception.filter';
 
 describe('App (e2e)', () => {
   let app: INestApplication;
@@ -16,6 +18,13 @@ describe('App (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+
+    app.enableCors();
+    app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+    const { httpAdapter } = app.get(HttpAdapterHost);
+    app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
+
     await app.init();
 
     //console.log('auth beforeAll' + new Date());
@@ -93,19 +102,14 @@ describe('App (e2e)', () => {
     });
   });
 
-  // describe('Auth cases', () => {
-  //   it('(POST) - Prevent register a new user with same username', async () => {
-  //     return request(app.getHttpServer())
-  //       .post('/auth/register')
-  //       .send(user)
-  //       .expect(409);
-  //     //.expect(409);
-  //     // .then((res) => {
-  //     //   console.log(res.body);
-  //     //   expect(res.body.id).toBeDefined();
-  //     // });
-  //   });
-  // });
+  describe('Auth cases', () => {
+    it('(POST) - Prevent register a new user with same username', async () => {
+      return request(app.getHttpServer())
+        .post('/auth/register')
+        .send(user)
+        .expect(409);
+    });
+  });
 
   describe('Universities CRUD', () => {
     const university = {

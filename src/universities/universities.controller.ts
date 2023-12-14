@@ -7,18 +7,23 @@ import {
   Param,
   Delete,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiBearerAuth,
   ApiCreatedResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
+  ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { UniversitiesService } from './universities.service';
 import { UniversityEntity } from './entities/university.entity';
 import { UniversityCreateDto } from './dto/university-create.dto';
 import { UniversityUpdateDto } from './dto/university-update.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiException } from '../errors/api-exception';
 
 @Controller('universities')
 @ApiTags('universities')
@@ -29,6 +34,8 @@ export class UniversitiesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: UniversityEntity })
+  @ApiBadRequestResponse({ type: ApiException })
+  @ApiUnauthorizedResponse({ type: ApiException })
   create(@Body() createUniversityDto: UniversityCreateDto) {
     return this.universitiesService.create(createUniversityDto);
   }
@@ -41,14 +48,22 @@ export class UniversitiesController {
 
   @Get(':id')
   @ApiOkResponse({ type: UniversityEntity })
-  findOne(@Param('id') id: string) {
-    return this.universitiesService.findOne(id);
+  @ApiNotFoundResponse()
+  async findOne(@Param('id') id: string) {
+    const result = await this.universitiesService.findOne(id);
+    if (!result) {
+      throw new NotFoundException(`Object with ${id} does not exist.`);
+    }
+    return result;
   }
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UniversityEntity })
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse({ type: ApiException })
+  @ApiUnauthorizedResponse({ type: ApiException })
   update(
     @Param('id') id: string,
     @Body() updateUniversityDto: UniversityUpdateDto,
@@ -60,6 +75,9 @@ export class UniversitiesController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UniversityEntity })
+  @ApiNotFoundResponse()
+  @ApiBadRequestResponse({ type: ApiException })
+  @ApiUnauthorizedResponse({ type: ApiException })
   remove(@Param('id') id: string) {
     return this.universitiesService.remove(id);
   }
