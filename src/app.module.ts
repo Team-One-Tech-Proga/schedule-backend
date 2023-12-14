@@ -8,6 +8,7 @@ import { TeachersModule } from './teachers/teachers.module';
 import { EventsModule } from './events/events.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { SubjectsModule } from './subjects/subjects.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     TeachersModule,
     EventsModule,
     AuthModule,
+    SubjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
