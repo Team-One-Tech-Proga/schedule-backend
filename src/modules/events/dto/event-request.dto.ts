@@ -12,6 +12,11 @@ export class EventRequestDto {
   @ApiProperty({ required: false })
   teacherId?: string;
 
+  @IsMongoId()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  subjectId?: string;
+
   @IsISO8601()
   @IsOptional()
   @ApiProperty({ required: false })

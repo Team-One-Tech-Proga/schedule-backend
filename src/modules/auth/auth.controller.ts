@@ -26,6 +26,7 @@ import { UserEntity } from '../users/entities/user.entity';
 import { ApiException } from '../../errors/api-exception';
 import { LoginDto } from './dto/login.dto';
 import { TokenDto } from './dto/token.dto';
+import { JwtPayloadDto } from './dto/jwt-payload.dto';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -55,7 +56,7 @@ export class AuthController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
   @ApiUnauthorizedResponse({ type: ApiException })
-  getProfile(@CurrentUser() user: any) {
+  getProfile(@CurrentUser() user: JwtPayloadDto) {
     return user;
   }
 }

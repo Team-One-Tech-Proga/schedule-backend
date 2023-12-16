@@ -28,6 +28,7 @@ import { CurrentUser } from '../auth/user.decorator';
 import { UserEntity } from '../users/entities/user.entity';
 import { EventRequestDto } from './dto/event-request.dto';
 import { ApiException } from '../../errors/api-exception';
+import { JwtPayloadDto } from '../auth/dto/jwt-payload.dto';
 
 @Controller('events')
 @ApiTags('events')
@@ -59,9 +60,9 @@ export class EventsController {
   @ApiUnauthorizedResponse({ type: ApiException })
   findAllMarked(
     @Query() query: EventRequestDto,
-    @CurrentUser() user: UserEntity,
+    @CurrentUser() user: JwtPayloadDto,
   ) {
-    return this.eventsService.findWithQueryandUser(query, user);
+    return this.eventsService.findWithQueryAndUser(query, user.id);
   }
 
   @Get(':id')

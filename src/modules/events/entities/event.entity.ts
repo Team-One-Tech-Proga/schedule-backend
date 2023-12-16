@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { GroupEntity } from '../../groups/entities/group.entity';
 import { TeacherEntity } from '../../teachers/entities/teacher.entity';
 import { UserEntity } from '../../users/entities/user.entity';
+import { SubjectEntity } from '../../subjects/entities/subject.entity';
 
 export class EventEntity implements Event {
   @ApiProperty()
@@ -22,6 +23,9 @@ export class EventEntity implements Event {
 
   @ApiProperty()
   subjectId: string;
+
+  @ApiProperty({ required: false, type: SubjectEntity })
+  subject?: string;
 
   @ApiProperty()
   groupId: string;

@@ -20,6 +20,7 @@ export class EventsService {
       where: {
         groupId: query.groupId,
         teacherId: query.teacherId,
+        subjectId: query.subjectId,
         startAt: {
           gte: query.startAt,
           lte: query.endAt,
@@ -29,17 +30,18 @@ export class EventsService {
     });
   }
 
-  findWithQueryandUser(query: EventRequestDto, currentUser: any) {
+  findWithQueryAndUser(query: EventRequestDto, userId: string) {
     return this.prisma.event.findMany({
       where: {
         groupId: query.groupId,
         teacherId: query.teacherId,
+        subjectId: query.subjectId,
         startAt: {
           gte: query.startAt,
           lte: query.endAt,
         },
         usersIDs: {
-          hasSome: [currentUser.userId],
+          hasSome: [userId],
         },
       },
       include: { group: true, subject: true, teacher: true },
