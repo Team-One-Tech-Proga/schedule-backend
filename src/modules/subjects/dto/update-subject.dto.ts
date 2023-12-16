@@ -1,12 +1,11 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { CreateSubjectDto } from './create-subject.dto';
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class UpdateSubjectDto extends PartialType(CreateSubjectDto) {
+export class UpdateSubjectDto {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MinLength(3)
   @MaxLength(100)
-  @ApiProperty()
-  name: string;
+  @ApiProperty({ required: false })
+  name?: string;
 }

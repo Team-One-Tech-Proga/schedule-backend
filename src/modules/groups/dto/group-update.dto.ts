@@ -1,12 +1,18 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { GroupCreateDto } from './group-create.dto';
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
-export class GroupUpdateDto extends PartialType(GroupCreateDto) {
+export class GroupUpdateDto {
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @MinLength(3)
   @MaxLength(100)
-  @ApiProperty()
-  name: string;
+  @ApiProperty({ required: false })
+  name?: string;
+
+  @IsString()
+  @IsOptional()
+  @MinLength(3)
+  @MaxLength(30)
+  @ApiProperty({ required: false })
+  slug?: string;
 }

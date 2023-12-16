@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsMongoId,
+  IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
@@ -9,21 +10,21 @@ import {
 
 export class TeacherCreateDto {
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @MinLength(3)
   @MaxLength(100)
   @ApiProperty()
   name: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @MinLength(3)
   @MaxLength(30)
   @ApiProperty()
   slug: string;
 
   @IsMongoId()
-  @IsOptional()
+  @IsNotEmpty()
   @ApiProperty()
   universityId: string;
 }

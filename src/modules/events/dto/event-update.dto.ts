@@ -1,34 +1,33 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { EventCreateDto } from './event-create.dto';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsMongoId, IsOptional } from 'class-validator';
 
-export class EventUpdateDto extends PartialType(EventCreateDto) {
+export class EventUpdateDto {
   @IsOptional()
   @IsDate()
-  @ApiProperty()
-  startAt: Date;
+  @ApiProperty({ required: false })
+  startAt?: Date;
 
   @IsOptional()
   @IsDate()
-  @ApiProperty()
-  endAt: Date;
+  @ApiProperty({ required: false })
+  endAt?: Date;
 
   @IsOptional()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   description?: string;
 
   @IsOptional()
   @IsMongoId()
-  @ApiProperty()
-  subjectId: string;
+  @ApiProperty({ required: false })
+  subjectId?: string;
 
   @IsOptional()
   @IsMongoId()
-  @ApiProperty()
-  groupId: string;
+  @ApiProperty({ required: false })
+  groupId?: string;
 
   @IsOptional()
   @IsMongoId()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   teacherId?: string;
 }
