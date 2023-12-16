@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { PrismaClient } from '@prisma/client';
 import { HttpAdapterHost } from '@nestjs/core';
-import { PrismaClientExceptionFilter } from '../src/prisma/client-exception/prisma-client-exception.filter';
+import { PrismaClientExceptionFilter } from '../src/filters/prisma-client-exception.filter';
 
 describe('App (e2e)', () => {
   let app: INestApplication;
